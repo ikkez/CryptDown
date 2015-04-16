@@ -3,11 +3,11 @@ CryptDown
 
 CryptDown is a Microservice to store documents, pastes or code snippets, similar to pastebin.
 
-It uses real 256bit AES encryption, which takes place directly in your browser. No plaintext is ever being send. Nobody can help you when you loose an encryption password for a paste. Your IP-Address will not be saved!
+It uses real 256bit AES encryption, which takes place directly in your browser. No plaintext is ever being sent. Nobody can help you when you lose an encryption password for a paste. Your IP-Address will not be saved!
 
 The 1st CryptDown instance can be found on [cryptdown.eu](https://cryptdown.eu). Feel free to improve this tool, give feedback, or create a new self-hosted instance.
 
-CryptDown was build with the following great and free software:
+CryptDown was built with the following great and free software:
 
 * [Fat-Free Framework](https://github.com/bcosca/fatfree)
 * CryptoJS
@@ -20,7 +20,7 @@ CryptDown was build with the following great and free software:
 
 #### Security
 
-This tool is just for testing purpose and a personal playground. Don't blame me if you loose your data, keys, or think it lacks on security.
+This tool is just for testing purpose and a personal playground. Don't blame me if you lose your data, keys, or think it lacks on security.
 
 Please file an issue for support and improvements.
 
