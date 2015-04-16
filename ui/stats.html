@@ -1,0 +1,19 @@
+<div class="page-header">
+	<h2>CryptDown Stats</h2>
+</div>
+
+<F3:check if="{{ isset(@cleanup) }}">
+	<div class="alert alert-info">
+		<p>Expired documents deleted: {{ @cleanup }}</p>
+	</div>
+</F3:check>
+
+<div class="alert alert-default">
+	<dl class="dl-horizontal">
+		<dt>stored docs:</dt>
+		<dd>{{ @all }}</dd>
+
+		<dt>expired docs:</dt>
+		<dd>{{ @old }} <a href="cleanup"><i class="fa fa-trash fa-fw"></i></a></dd>
+	</dl>
+</div>

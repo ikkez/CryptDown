@@ -1,0 +1,108 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+	<base href="{{@SCHEME.'://'.@HOST.@BASE.'/'}}"/>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<title>CryptDown{{ @ALIAS=='view' ? ' - '.@paste.uuid:'' }}</title>
+	<meta name="description" content="client-side encrypted Markdown pastes"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link rel="icon" href="{{ @UI }}img/favicon.ico">
+	<link rel="stylesheet" href="{{ @UI }}css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="{{ @UI }}css/font-awesome.min.css" charset="utf-8"/>
+	<link rel="stylesheet" href="{{ @UI }}css/medium-editor.min.css"/>
+	<link rel="stylesheet" href="{{ @UI }}css/themes/bootstrap.css"/>
+	<link rel="stylesheet" href="{{ @UI }}css/main.css"/>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<script>window.html5 || document.write('<script src="{{ @UI }}js/vendor/html5shiv.js"><\/script>')</script>
+	<![endif]-->
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+					aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="{{@SCHEME.'://'.@HOST.@BASE.'/'}}">
+				<i class="fa fa-lock fa-fw"></i> CryptDown
+			</a>
+			<F3:check if="{{ @ALIAS=='view' }}">
+				<p class="navbar-text hidden-xs">client-side encrypted Markdown pastes</p>
+			</F3:check>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="{{@SCHEME.'://'.@HOST.@BASE.'/'}}" title="create encrypted paste"><i class="fa fa-plus-circle fa-fw"></i> Create New</a>
+				</li>
+				<li><a href="#info" data-toggle="modal" data-target="#info"><i class="fa fa-info-circle fa-fw"></i> Info</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container" id="main">
+	<F3:include href="{{ @sub_tmpl }}"/>
+	<hr>
+	<footer>
+		<p>&copy; 2015, ikkez <span class="pull-right notice">{*Don't rely on this service. Data may be deleted anytime. *}Kittens get hurt if you abuse this service. </span></p>
+	</footer>
+</div>
+
+<div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="infoLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+						aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="infoLabel">CryptDown Info</h4>
+			</div>
+			<div class="modal-body">
+				<p>CryptDown is a Microservice to store documents, pastes or code snippets, similar to pastebin.</p>
+				<p>CryptDown uses real 256bit AES encryption, which takes place directly in your browser. No plaintext
+					is ever being send. Nobody can help you when you loose an encryption password for a paste. Your
+					IP-Address will not be saved!</p>
+
+				<p>CryptDown was build with the following great and free software:</p>
+				<p>
+				<a class="label label-info" href="http://fatfreeframework.com/" target="_blank">Fat-Free Framework (backend)</a>
+				<a class="label label-info" href="https://code.google.com/p/crypto-js/" target="_blank">CryptoJS</a>
+				<a class="label label-info" href="https://github.com/daviferreira/medium-editor" target="_blank">MediumEditor</a>
+				<a class="label label-info" href="https://github.com/showdownjs/showdown" target="_blank">Showdown.js</a>
+				<a class="label label-info" href="https://github.com/domchristie/to-markdown" target="_blank">to-markdown.js</a>
+				<a class="label label-info" href="http://jquery.com/" target="_blank">jQuery</a>
+				<a class="label label-info" href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>
+				<a class="label label-info" href="http://fontawesome.io/" target="_blank">font-awesome</a>
+				</p>
+				<p class="link-flip">
+				The <a href="https://thenounproject.com/term/document/14008/">encrypted document symbol</a> was made by <a href="https://thenounproject.com/Ilsur/">Ilsur Aptukov</a>.<br/>&nbsp;
+				</p>
+				<p id="infocopytext">&copy; 2015 - cryptdown.eu, made by <a href="http://ikkez.de" target="_blank">ikkez</a></p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{{ @UI }}js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+<script src="{{ @UI }}js/vendor/bootstrap.min.js"></script>
+<script src="//crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
+<script src="//crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha256.js"></script>
+<script src="//crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js"></script>
+<script src="{{ @UI }}js/vendor/medium-editor.min.js"></script>
+<script src="{{ @UI }}js/vendor/Showdown.min.js"></script>
+<script src="{{ @UI }}js/vendor/to-markdown.js"></script>
+<script src="{{ @UI }}js/main.js"></script>
+
+</body>
+</html>

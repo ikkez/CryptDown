@@ -1,0 +1,11 @@
+
+<!-- Example row of columns -->
+<div class="page-header">
+    <h2>Sorry!  <small>Error {{ @ERROR.code }}</small></h2>
+</div>
+
+<div class="alert {{ @ERROR.code == 500 ? 'alert-danger' : 'alert-default' }}">
+
+    <p>Status: {{ @ERROR.status }}</p>
+    <p>{{ @ERROR.text }}</p>
+</div>

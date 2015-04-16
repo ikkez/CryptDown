@@ -1,0 +1,68 @@
+<div class="page-header">
+	<h1><img id="cd_symbol" src="{{ @UI }}img/noun_14008_cc.svg" alt=""/> CryptDown
+		<small>client-side AES-encrypted Markdown pastes</small>
+	</h1>
+</div>
+
+<form id="composeForm" class="form" method="post" action="create">
+	<fieldset>
+		<div role="tabpanel" id="composeTabs">
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active"><a href="#write" aria-controls="write" role="tab" data-toggle="tab">Write WYSIWYG</a></li>
+				<li role="presentation"><a href="#md" aria-controls="md" role="tab" data-toggle="tab">Show Markdown</a>
+				</li>
+			</ul>
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active" id="write">
+					<div id="mdview" class="editable well link-flip"></div>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="md">
+					<textarea id="cryptdown" class="form-control">## **Headline** to your encrypted Markdown sheet
+
+**Yeah**, this is your [markdown](http://en.wikipedia.org/wiki/Markdown) document. Just click here and start typing.
+
+Select some text to get the **toolbar**.</textarea>
+					<textarea name="cryptdown" id="encryped" class="hidden"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<label for="pass">Encryption Password</label>
+				<div class="input-group">
+					<input type="password" placeholder="Password" id="pass" class="form-control" required>
+
+					<span class="input-group-btn">
+						<button type="button" id="savePw" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="save password on this device?">
+							<i class="fa fa-floppy-o fa-fw"></i>
+						</button>
+					</span>
+				</div>
+
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" id="randomPassword"> generate random password
+					</label>
+				</div>
+			</div>
+			<div class="col-sm-2">
+				<label for="lifetime">Lifetime</label>
+				<select id="lifetime" class="form-control" name="lifetime">
+					<option value="1h">1 hour</option>
+					<option value="1d" selected>1 day</option>
+					<option value="1w">1 week</option>
+					<option value="1m">1 month</option>
+					<option value="1y">1 year</option>
+				</select>
+			</div>
+		</div>
+		<br/>
+		<div class="row">
+			<div class="col-sm-4 col-md-2">
+				<button id="saveBtn" class="btn btn-primary btn-block" type="submit">
+					<i class="fa fa-floppy-o fa-fw"></i> Save
+				</button>
+			</div>
+		</div>
+	</fieldset>
+</form>

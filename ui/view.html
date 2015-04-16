@@ -1,0 +1,43 @@
+
+<div class="page-header">
+	<h2>
+		<img id="cd_symbol" src="{{ @UI }}img/noun_14008_cc.svg" alt="logo" />
+		View document</h2>
+
+	<p>This document will dissolve by itself on &nbsp;{{ '<i class="fa fa-calendar-o"></i> {0,date}, <i
+			class="fa fa-clock-o"></i> {0,time}', strtotime(@paste.lifetime) | format }}</p>
+</div>
+
+
+<div class="form-group has-error">
+	<div class="row">
+		<div id="pwbox" class="col-sm-4 form-group">
+			<label class="control-label" for="pass" id="decryptPassLabel">Decryption password</label>
+			<div class="input-group">
+				<input type="password" class="form-control" id="pass" placeholder="Password">
+				<span class="input-group-btn">
+					<button class="btn btn-primary" type="button" id="pass-reset"><i class="fa fa-times"></i></button>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<hr/>
+
+<div id="mdview" class="well link-flip" data-pasteID="{{ @paste.uuid }}"></div>
+<div class="btn-toolbar">
+	<div class="btn-group btn-group-sm" data-toggle="buttons">
+		<label class="btn btn-primary active">
+			<input type="radio" name="render" id="renderText" autocomplete="off" checked> text
+		</label>
+		<label class="btn btn-primary">
+			<input type="radio" name="render" id="renderSource" autocomplete="off"> md
+		</label>
+	</div>
+	<div class="btn-group btn-group-sm">
+		<button type="button" class="btn btn-primary" id="pasteAsNew" disabled>paste as new</button>
+	</div>
+</div>
+
+<textarea id="encryped" class="hidden source">{{ @paste.data }}</textarea>
