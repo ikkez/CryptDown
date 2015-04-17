@@ -208,6 +208,11 @@ $(function(){
 	// Method that converts the HTML contents to Markdown
 	var updateMarkdown = function(content){
 		var markdown = markdownize(content);
+		var mdc = $('<div>'+markdown+'</div>');
+		mdc.find('pre').each(function(i,el){
+			$(el).html($(el).text());
+		});
+		markdown = mdc.html();
 		if (textarea.val() == markdown)
 			return;
 		textarea.val(markdown);
@@ -215,13 +220,14 @@ $(function(){
 	};
 	var updateHtml = function(content){
 		ccache = content;
+		var escaped = $('<textarea />').text(content).html();
 		if (renderMD) {
 			if (markdownize(mdview.html()) == content)
 				return;
-			mdview.html(converter.makeHtml(content));
+			mdview.html((converter.makeHtml(escaped).replace('&lt;pre&gt;','<pre>').replace('&lt;/pre&gt;','</pre>')));
 			updateRawText();
 		} else
-			mdview.html('<pre class="md-view"><code>' + content + '</code></pre>');
+			mdview.html('<pre class="md-view"><code>' + (escaped) + '</code></pre>');
 	};
 	var updateRawText = function(){
 		if (passInput.val() == '')
