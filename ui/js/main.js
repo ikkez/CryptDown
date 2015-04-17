@@ -214,7 +214,8 @@ $(function(){
 		updateRawText();
 	};
 	var sanitize = function (text) {
-		return text.replace(/<\s*\/\s*script.*>/i,'&lt;/script&gt;').replace(/<\s*script.*>/i,'&lt;script&gt;');
+		return text.replace(/<\s*\/\s*script.*>/ig,'&lt;/script&gt;').replace(/<\s*script.*>/ig,'&lt;script&gt;')
+			.replace(/(<\w*.*\s+)on(?:\w+)(\s*=.*?>)/ig,'$1x$2');
 	};
 	var updateHtml = function(content){
 		ccache = content;
