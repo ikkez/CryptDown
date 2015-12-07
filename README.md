@@ -1,7 +1,7 @@
 CryptDown
 =======
 
-CryptDown is a Microservice to store documents, pastes or code snippets, similar to pastebin.
+CryptDown is a microservice to store documents, pastes or code snippets, similar to pastebin.
 
 It uses real 256bit AES encryption, which takes place directly in your browser. No plaintext is ever being sent. Nobody can help you when you lose an encryption password for a paste. Your IP-Address will not be saved!
 
@@ -17,6 +17,16 @@ CryptDown was built with the following great and free software:
 * jQuery
 * Twitter Bootstrap
 * font-awesome
+
+#### Installation
+
+To install CryptDown on your own, ensure you have the following environment:
+
+* apache webserver (nginx is also possible)
+* PHP 5.3
+* PDO SQlite
+
+ajdust the `config.ini` file for your needs and run the `/install` route in your browser. done.
 
 #### Security
 
