@@ -128,7 +128,7 @@ $f3->route('GET /install',function( Base $f3, $params) {
 	$table = $f3->get('db_table');
 	$schema = new \DB\SQL\Schema($db);
 	if (!in_array($table, $schema->getTables())){
-		$table = $schema->createTable( 'pastes' );
+		$table = $schema->createTable( $table );
 		$table->addColumn('data')->type_text();
 		$table->addColumn('crdate')->type_datetime();
 		$table->addColumn('lifetime')->type_datetime();
