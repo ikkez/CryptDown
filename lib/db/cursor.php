@@ -2,7 +2,7 @@
 
 /*
 
-	Copyright (c) 2009-2015 F3::Factory/Bong Cosca, All rights reserved.
+	Copyright (c) 2009-2017 F3::Factory/Bong Cosca, All rights reserved.
 
 	This file is part of the Fat-Free Framework (http://fatfreeframework.com).
 
@@ -32,11 +32,11 @@ abstract class Cursor extends \Magic implements \IteratorAggregate {
 
 	protected
 		//! Query results
-		$query=array(),
+		$query=[],
 		//! Current position
 		$ptr=0,
 		//! Event listeners
-		$trigger=array();
+		$trigger=[];
 
 	/**
 	*	Return database type
@@ -70,9 +70,10 @@ abstract class Cursor extends \Magic implements \IteratorAggregate {
 	*	Count records that match criteria
 	*	@return int
 	*	@param $filter array
+	*	@param $options array
 	*	@param $ttl int
 	**/
-	abstract function count($filter=NULL,$ttl=0);
+	abstract function count($filter=NULL,array $options=NULL,$ttl=0);
 
 	/**
 	*	Insert new record
@@ -103,7 +104,7 @@ abstract class Cursor extends \Magic implements \IteratorAggregate {
 
 	/**
 	*	Get cursor's equivalent external iterator
-	*	Causes a fatal error in PHP 5.3.5if uncommented
+	*	Causes a fatal error in PHP 5.3.5 if uncommented
 	*	return ArrayIterator
 	**/
 	abstract function getiterator();
@@ -119,12 +120,16 @@ abstract class Cursor extends \Magic implements \IteratorAggregate {
 
 	/**
 	*	Return first record (mapper object) that matches criteria
-	*	@return object|FALSE
+	*	@return static|FALSE
 	*	@param $filter string|array
 	*	@param $options array
 	*	@param $ttl int
 	**/
 	function findone($filter=NULL,array $options=NULL,$ttl=0) {
+		if (!$options)
+			$options=[];
+		// Override limit
+		$options['limit']=1;
 		return ($data=$this->find($filter,$options,$ttl))?$data[0]:FALSE;
 	}
 
@@ -138,25 +143,27 @@ abstract class Cursor extends \Magic implements \IteratorAggregate {
 	*	@param $filter string|array
 	*	@param $options array
 	*	@param $ttl int
+	*	@param $bounce bool
 	**/
 	function paginate(
-		$pos=0,$size=10,$filter=NULL,array $options=NULL,$ttl=0) {
-		$total=$this->count($filter,$ttl);
+		$pos=0,$size=10,$filter=NULL,array $options=NULL,$ttl=0,$bounce=TRUE) {
+		$total=$this->count($filter,$options,$ttl);
 		$count=ceil($total/$size);
-		$pos=max(0,min($pos,$count-1));
-		return array(
-			'subset'=>$this->find($filter,
+		if ($bounce)
+			$pos=max(0,min($pos,$count-1));
+		return [
+			'subset'=>($bounce || $pos<$count)?$this->find($filter,
 				array_merge(
-					$options?:array(),
-					array('limit'=>$size,'offset'=>$pos*$size)
+					$options?:[],
+					['limit'=>$size,'offset'=>$pos*$size]
 				),
 				$ttl
-			),
+			):[],
 			'total'=>$total,
 			'limit'=>$size,
 			'count'=>$count,
-			'pos'=>$pos<$count?$pos:0
-		);
+			'pos'=>$bounce?($pos<$count?$pos:0):$pos
+		];
 	}
 
 	/**
@@ -167,8 +174,9 @@ abstract class Cursor extends \Magic implements \IteratorAggregate {
 	*	@param $ttl int
 	**/
 	function load($filter=NULL,array $options=NULL,$ttl=0) {
+		$this->reset();
 		return ($this->query=$this->find($filter,$options,$ttl)) &&
-			$this->skip(0)?$this->query[$this->ptr=0]:FALSE;
+			$this->skip(0)?$this->query[$this->ptr]:FALSE;
 	}
 
 	/**
@@ -373,7 +381,7 @@ abstract class Cursor extends \Magic implements \IteratorAggregate {
 	*	@return NULL
 	**/
 	function reset() {
-		$this->query=array();
+		$this->query=[];
 		$this->ptr=0;
 	}
 

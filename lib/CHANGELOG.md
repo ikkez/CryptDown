@@ -1,5 +1,343 @@
 CHANGELOG
 
+3.6.3 (31 December 2017)
+*	PHP7 fix: remove deprecated (unset) cast
+*	Web->request: restricted follow_location to 3XX responses only
+*	CLI mode: refactored arguments parsing
+*	CLI mode: fixed query string encoding
+*	SMTP: Refactor parsing of attachments
+*	SMTP: clean-up mail headers for multipart messages, [#1065](https://github.com/bcosca/fatfree/issues/1065)
+*	config: fixed performance issues on parsing config files
+*	config: cast command parameters in config entries to php type & constant, [#1030](https://github.com/bcosca/fatfree/issues/1030)
+*	config: reduced registry calls
+*	config: skip hive escaping when resolving dynamic config vars, [#1030](https://github.com/bcosca/fatfree/issues/1030)
+*	Bug fix: Incorrect cookie lifetime computation, [#1070](https://github.com/bcosca/fatfree/issues/1070), [#1016](https://github.com/bcosca/fatfree/issues/1016)
+*	DB\SQL\Mapper: use RETURNING option instead of a sequence query to get lastInsertId in PostgreSQL, [#1069](https://github.com/bcosca/fatfree/issues/1069), [#230](https://github.com/bcosca/fatfree-core/issues/230)
+*	DB\SQL\Session: check if _agent is too long for SQL based sessions [#236](https://github.com/bcosca/fatfree-core/issues/236)
+*	DB\SQL\Session: fix Session handler table creation issue on SQL Server, [#899](https://github.com/bcosca/fatfree/issues/899)
+*	DB\SQL: fix oracle db issue with empty error variable, [#1072](https://github.com/bcosca/fatfree/issues/1072)
+*	DB\SQL\Mapper: fix sorting issues on SQL Server, [#1052](https://github.com/bcosca/fatfree/issues/1052) [#225](https://github.com/bcosca/fatfree-core/issues/225)
+*	Prevent directory traversal attacks on filesystem based cache [#1073](https://github.com/bcosca/fatfree/issues/1073)
+*	Bug fix, Template: PHP constants used in include with attribute, [#983](https://github.com/bcosca/fatfree/issues/983)
+*	Bug fix, Template: Numeric value in expression alters PHP_EOL context
+*	Template: use existing linefeed instead of PHP_EOL, [#1048](https://github.com/bcosca/fatfree/issues/1048)
+*	Template: make newline interpolation handling configurable [#223](https://github.com/bcosca/fatfree-core/issues/223)
+*	Template: add beforerender to Preview
+*	fix custom FORMATS without modifiers
+*	Cache: Refactor Cache->reset for XCache
+*	Cache: loosen reset cache key pattern, [#1041](https://github.com/bcosca/fatfree/issues/1041)
+*	XCache: suffix reset only works if xcache.admin.enable_auth is disabled
+*	Added HTTP 103 as recently approved by the IETF
+*	LDAP changes to for AD flexibility [#227](https://github.com/bcosca/fatfree-core/issues/227)
+*	Hide debug trace from ajax errors when DEBUG=0 [#1071](https://github.com/bcosca/fatfree/issues/1071)
+*	fix View->render using potentially wrong cache entry
+
+3.6.2 (26 June 2017)
+*   Return a status code > 0 when dying on error [#220](https://github.com/bcosca/fatfree-core/issues/220)
+*   fix SMTP line width [#215](https://github.com/bcosca/fatfree-core/issues/215)
+*   Allow using a custom field for ldap user id checking [#217](https://github.com/bcosca/fatfree-core/issues/217)
+*   NEW: DB\SQL->exists: generic method to check if SQL table exists
+*   Pass handler to route handler and hooks [#1035](https://github.com/bcosca/fatfree/issues/1035)
+*   pass carriage return of multiline dictionary keys
+*   Better Web->slug customization
+*   fix incorrect header issue [#211](https://github.com/bcosca/fatfree-core/issues/211)
+*   fix schema issue on databases with case-sensitive collation, fixes [#209](https://github.com/bcosca/fatfree-core/issues/209)
+*   Add filter for deriving C-locale equivalent of a number
+*   Bug fix: @LANGUAGE remains unchanged after override
+*   abort: added Header pre-check
+*   Assemble URL after ONREROUTE
+*   Add reroute argument to skip script termination
+*   Invoke ONREROUTE after headers are sent
+*   SQLite switch to backtick as quote
+*   Bug fix: Incorrect timing in SQL query logs
+*   DB\SQL\Mapper: Cast return value of count to integer
+*   Patched $_SERVER['REQUEST_URI'] to ensure it contains a relative URI
+*   Tweak debug verbosity
+*   fix php carriage return issue in preview->build [#205](https://github.com/bcosca/fatfree-core/pull/205)
+*   fixed template string resolution [#205](https://github.com/bcosca/fatfree-core/pull/205)
+*   Fixed unexpected default seed on CACHE set [#1028](https://github.com/bcosca/fatfree/issues/1028)
+*   DB\SQL\Mapper: Optimized field escaping on options
+*   Optimize template conversion to PHP file
+
+3.6.1 (2 April 2017)
+*	NEW: Recaptcha plugin [#194](https://github.com/bcosca/fatfree-core/pull/194)
+*	NEW: MB variable for detecting multibyte support
+*	NEW: DB\SQL: Cache parsed schema for the TTL duration
+*	NEW: quick erase flag on Jig/Mongo/SQL mappers [#193](https://github.com/bcosca/fatfree-core/pull/193)
+*	NEW: Allow OPTIONS method to return a response body [#171](https://github.com/bcosca/fatfree-core/pull/171)
+*	NEW: Add support for Memcached (bcosca/fatfree#997)
+*	NEW: Rudimentary preload resource (HTTP2 server) support via template push()
+*	NEW: Add support for new MongoDB driver [#177](https://github.com/bcosca/fatfree-core/pull/177)
+*	Changed: template filter are all lowercase now
+*	Changed: Fix template lookup inconsistency: removed base dir from UI on render
+*	Changed: count() method now has an options argument [#192](https://github.com/bcosca/fatfree-core/pull/192)
+*	Changed: SMTP, Spit out error message if any
+*	\DB\SQL\Mapper: refactored row count strategy
+*	DB\SQL\Mapper: Allow non-scalar values to be assigned as mapper property
+*	DB\SQL::PARAM_FLOAT: remove cast to float (#106 and bcosca/fatfree#984) (#191)
+*	DB\SQL\mapper->erase: allow empty string
+*	DB\SQL\mapper->insert: fields reset after successful INSERT
+*	Add option to debounce Cursor->paginate subset [#195](https://github.com/bcosca/fatfree-core/pull/195)
+*	View: Don't delete sandboxed variables (#198)
+*	Preview: Optimize compilation of template expressions
+*	Preview: Use shorthand tag for direct rendering
+*	Preview->resolve(): new tweak to allow template persistence as option
+*	Web: Expose diacritics translation table
+*	SMTP: Enable logging of message body only when $log argument is 'verbose'
+*	SMTP: Convert headers to camelcase for consistency
+*	make cache seed more flexible, #164
+*	Improve trace details for DEBUG>2
+*	Enable config() to read from an array of input files
+*	Improved alias and reroute regex
+*	Make camelCase and snakeCase Unicode-aware
+*	format: Provision for optional whitespaces
+*	Break APCu-BC dependence
+*	Old PHP 5.3 cleanup
+*	Debug log must include HTTP query
+*	Recognize X-Forwarded-Port header (bcosca/fatfree#1002)
+*	Avoid use of deprecated mcrypt module
+*	Return only the client's IP when using the `X-Forwarded-For` header to deduce an IP address
+*	Remove orphan mutex locks on termination (#157)
+*	Use 80 as default port number to avoid issues when `$_SERVER['SERVER_PORT']` is not existing
+*	fread replaced with readfile() for simple send() usecase
+*	Bug fix: request URI with multiple leading slashes, #203
+*	Bug fix: Query generates wrong adhoc field value
+*	Bug fix: SMTP stream context issue #200
+*	Bug fix: child pseudo class selector in minify, bcosca/fatfree#1008
+*	Bug fix: "Undefined index: CLI" error (#197)
+*	Bug fix: cast Cache-Control expire time to int, bcosca/fatfree#1004
+*	Bug fix: Avoid issuance of multiple Content-Type headers for nested templates
+*	Bug fix: wildcard token issue with digits (bcosca/fatfree#996)
+*	Bug fix: afterupdate ignored when row does not change
+*	Bug fix: session handler read() method for PHP7 (need strict string) #184 #185
+*	Bug fix: reroute mocking in CLI mode (#183)
+*	Bug fix: Reroute authoritative relative references (#181)
+*	Bug fix: locales order and charset hyphen
+*	Bug fix: base stripped twice in router (#176)
+
+3.6.0 (19 November 2016)
+*	NEW: [cli] request type
+*	NEW: console-friendly CLI mode
+*	NEW: lexicon caching
+*	NEW: Silent operator skips startup error check (#125)
+*	NEW: DB\SQL->trans()
+*	NEW: custom config section parser, i.e. [conf > Foo::bar]
+*	NEW: support for cache tags in SQL
+*	NEW: custom FORMATS
+*	NEW: Mongo mapper fields whitelist
+*	NEW: WebSocket server
+*	NEW: Base->extend method (#158)
+*	NEW: Implement framework variable caching via config, i.e. FOO = "bar" | 3600
+*	NEW: Lightweight OAuth2 client
+*	NEW: SEED variable, configurable app-specific hashing prefix (#149, bcosca/fatfree#951, bcosca/fatfree#884, bcosca/fatfree#629)
+*	NEW: CLI variable
+*	NEW: Web->send, specify custom filename (#124)
+*	NEW: Web->send, added flushing flag (#131)
+*	NEW: Indexed route wildcards, now exposed in PARAMS['*']
+*	Changed: PHP 5.4 is now the minimum version requirement
+*	Changed: Prevent database wrappers from being cloned
+*	Changed: Router works on PATH instead of URI (#126) NB: PARAMS.0 no longer contains the query string
+*	Changed: Removed ALIASES autobuilding (#118)
+*	Changed: Route wildcards match empty strings (#119)
+*	Changed: Disable default debug highlighting, HIGHLIGHT is false now
+*	General PHP 5.4 optimizations
+*	Optimized config parsing
+*	Optimized Base->recursive
+*	Optimized header extraction
+*	Optimized cache/expire headers
+*	Optimized session_start behaviour (bcosca/fatfree#673)
+*	Optimized reroute regex
+*	Tweaked cookie removal
+*	Better route precedence order
+*	Performance tweak: reduced cache calls
+*	Refactored lexicon (LOCALES) build-up, much faster now
+*	Added turkish locale bug workaround
+*	Geo->tzinfo Update to UTC
+*	Added Xcache reset (bcosca/fatfree#928)
+*	Redis cache: allow db name in dsn
+*	SMTP: Improve server emulation responses
+*	SMTP: Optimize transmission envelope
+*	SMTP: Implement mock transmission
+*	SMTP: Various bug fixes and feature improvements
+*	SMTP: quit on failed authentication
+*	Geo->weather: force metric units
+*	Base->until: Implement CLI interoperability
+*	Base->format: looser plural syntax
+*	Base->format: Force decimal as default number format
+*	Base->merge: Added $keep flag to save result to the hive key
+*	Base->reroute: Allow array as URL argument for aliasing
+*	Base->alias: Allow query string (or array) to be appended to alias
+*	Permit reroute to named routes with URL query segment
+*	Sync COOKIE global on set()
+*	Permit non-hive variables to use JS dot notation
+*	RFC2616: Use absolute URIs for Location header
+*	Matrix->calendar: Check if calendar extension is loaded
+*	Markdown: require start of line/whitespace for text processing (#136)
+*	DB\[SQL|Jig|Mongo]->log(FALSE) disables logging
+*	DB\SQL->exec: Added timestamp toggle to db log
+*	DB\SQL->schema: Remove unnecessary line terminators
+*	DB\SQL\Mapper: allow array filter with empty string
+*	DB\SQL\Mapper: optimized handling for key-less tables
+*	DB\SQL\Mapper: added float support (#106)
+*	DB\SQL\Session: increased default column sizes (#148, bcosca/fatfree#931, bcosca/fatfree#950)
+*	Web: Catch cURL errors
+*	Optimize Web->receive (bcosca/fatfree#930)
+*	Web->minify: fix arbitrary file download vulnerability
+*	Web->request: fix cache control max-age detection (bcosca/fatfree#908)
+*	Web->request: Add request headers & error message to return value (bcosca/fatfree#737)
+*	Web->request: Refactored response to HTTP request
+*	Web->send flush while sending big files
+*	Image->rgb: allow hex strings
+*	Image->captcha: Check if GD module supports TrueType
+*	Image->load: Return FALSE on load failure
+*	Image->resize: keep aspect ratio when only width or height was given
+*	Updated OpenID lib (bcosca/fatfree#965)
+*	Audit->card: add new mastercard "2" BIN range (bcosca/fatfree#954)
+*	Deprecated: Bcrypt class
+*	Preview->render: optimized detection to remove short open PHP tags and allow xml tags (#133)
+*	Display file and line number in exception handler (bcosca/fatfree#967)
+*	Added error reporting level to Base->error and ERROR.level (bcosca/fatfree#957)
+*	Added optional custom cache instance to Session (#141)
+*	CLI-aware mock()
+*	XFRAME and PACKAGE can be switched off now (#128)
+*	Bug fix: wrong time calculation on memcache reset (#170)
+*	Bug fix: encode CLI parameters
+*	Bug fix: Close connection on abort explicitly (#162)
+*	Bug fix: Image->identicon, Avoid double-size sprite rotation (and possible segfault)
+*	Bug fix: Image->render and Image->dump, removed unnecessary 2nd argument (#146)
+*	Bug fix: Magic->offsetset, access property as array element (#147)
+*	Bug fix: multi-line custom template tag parsing (bcosca/fatfree#935)
+*	Bug fix: cache headers on errors (bcosca/fatfree#885)
+*	Bug fix: Web, deprecated CURLOPT_SSL_VERIFYHOST in curl
+*	Bug fix: Web, Invalid user error constant (bcosca/fatfree#962)
+*	Bug fix: Web->request, redirections for domain-less location (#135)
+*	Bug fix: DB\SQL\Mapper, reset changed flag after update (#142, #152)
+*	Bug fix: DB\SQL\Mapper, fix changed flag when using assignment operator #143 #150 #151
+*	Bug fix: DB\SQL\Mapper, revival of the HAVING clause
+*	Bug fix: DB\SQL\Mapper, pgsql with non-integer primary keys (bcosca/fatfree#916)
+*	Bug fix: DB\SQL\Session, quote table name (bcosca/fatfree#977)
+*	Bug fix: snakeCase returns word starting with underscore (bcosca/fatfree#927)
+*	Bug fix: mock does not populate PATH variable
+*	Bug fix: Geo->weather API key (#129)
+*	Bug fix: Incorrect compilation of array element with zero index
+*	Bug fix: Compilation of array construct is incorrect
+*	Bug fix: Trailing slash redirection on UTF-8 paths (#121)
+
+3.5.1 (31 December 2015)
+*	NEW: ttl attribute in <include> template tag
+*	NEW: allow anonymous function for template filter
+*	NEW: format modifier for international and custom currency symbol
+*	NEW: Image->data() returns image resource
+*	NEW: extract() get prefixed array keys from an assoc array
+*	NEW: Optimized and faster Template parser with full support for HTML5 empty tags
+*	NEW: Added support for {@token} encapsulation syntax in routes definition
+*	NEW: DB\SQL->exec(), automatically shift to 1-based query arguments
+*	NEW: abort() flush output
+*	Added referenced value to devoid()
+*	Template token filters are now resolved within Preview->token()
+*	Web->_curl: restrict redirections to HTTP
+*	Web->minify(), skip importing of external files
+*	Improved session and error handling in until()
+*	Get the error trace array with the new $format parameter
+*	Better support for unicode URLs
+*	Optimized TZ detection with date_default_timezone_get()
+*	format() Provide default decimal places
+*	Optimize code: remove redundant TTL checks
+*	Optimized timeout handling in Web->request()
+*	Improved PHPDoc hints
+*	Added missing russian DIACRITICS letters
+*	DB\Cursor: allow child implementation of reset()
+*	DB\Cursor: Copyfrom now does an internal call to set()
+*	DB\SQL: Provide the ability to disable SQL logging
+*	DB\SQL: improved query analysis to trigger fetchAll
+*	DB\SQL\Mapper: added support for binary table columns
+*	SQL,JIG,MONGO,CACHE Session handlers refactored and optimized
+*	SMTP Refactoring and optimization
+*	Bug fix: SMTP, Align quoted_printable_encode() with SMTP specs (dot-stuffing)
+*	Bug fix: SMTP, Send buffered optional headers to output
+*	Bug fix: SMTP, Content-Transfer-Encoding for non-TLS connections
+*	Bug fix: SMTP, Single attachment error
+*	Bug fix: Cursor->load not always mapping to first record
+*	Bug fix: dry SQL mapper should not trigger 'load'
+*	Bug fix: Code highlighting on empty text
+*	Bug fix: Image->resize, round dimensions instead of cast
+*	Bug fix: whitespace handling in $f3->compile()
+*	Bug fix: TTL of `View` and `Preview` (`Template`)
+*	Bug fix: token filter regex
+*	Bug fix: Template, empty attributes
+*	Bug fix: Preview->build() greedy regex
+*	Bug fix: Web->minify() single-line comment on last line
+*	Bug fix: Web->request(), follow_location with cURL and open_basedir
+*	Bug fix: Web->send() Single quotes around filename not interpreted correctly by some browsers
+
+3.5.0 (2 June 2015)
+*	NEW: until() method for long polling
+*	NEW: abort() to disconnect HTTP client (and continue execution)
+*	NEW: SQL Mapper->required() returns TRUE if field is not nullable
+*	NEW: PREMAP variable for allowing prefixes to handlers named after HTTP verbs
+*	NEW: [configs] section to allow config includes
+*	NEW: Test->passed() returns TRUE if no test failed
+*	NEW: SQL mapper changed() function
+*	NEW: fatfree-core composer support
+*	NEW: constants() method to expose constants
+*	NEW: Preview->filter() for configurable token filters
+*	NEW: CORS variable for Cross-Origin Resource Sharing support, #731
+*	Change in behavior: Switch to htmlspecialchars for escaping
+*	Change in behavior: No movement in cursor position after erase(), #797
+*	Change in behavior: ERROR.trace is a multiline string now
+*	Change in behavior: Strict token recognition in <include> href attribute
+*	Router fix: loose method search
+*	Better route precedence order, #12
+*	Preserve contents of ROUTES, #723
+*	Alias: allow array of parameters
+*	Improvements on reroute method
+*	Fix for custom Jig session files
+*	Audit: better mobile detection
+*	Audit: add argument to test string as browser agent
+*	DB mappers: abort insert/update/erase from hooks, #684
+*	DB mappers: Allow array inputs in copyfrom()
+*	Cache,SQL,Jig,Mongo Session: custom callback for suspect sessions
+*	Fix for unexpected HIVE values when defining an empty HIVE array
+*	SQL mapper: check for results from CALL and EXEC queries, #771
+*	SQL mapper: consider SQL schema prefix, #820
+*	SQL mapper: write to log before execution to
+	enable tracking of PDOStatement error
+*	Add SQL Mapper->table() to return table name
+*	Allow override of the schema in SQL Mapper->schema()
+*	Improvement: Keep JIG table as reference, #758
+*	Expand regex to include whitespaces in SQL DB dsn, #817
+*	View: Removed reserved variables $fw and $implicit
+*	Add missing newlines after template expansion
+*	Web->receive: fix for complex field names, #806
+*	Web: Improvements in socket engine
+*	Web: customizable user_agent for all engines, #822
+*	SMTP: Provision for Content-ID in attachments
+*	Image + minify: allow absolute paths
+*	Promote framework error to E_USER_ERROR
+*	Geo->weather switch to OpenWeather
+*	Expose mask() and grab() methods for routing
+*	Expose trace() method to expose the debug backtrace
+*	Implement recursion strategy using IteratorAggregate, #714
+*	Exempt whitespace between % and succeeding operator from being minified, #773
+*	Optimized error detection and ONERROR handler, fatfree-core#18
+*	Tweak error log output
+*	Optimized If-Modified-Since cache header usage
+*	Improved APCu compatibility, #724
+*	Bug fix: Web::send fails on filename with spaces, #810
+*	Bug fix: overwrite limit in findone()
+*	Bug fix: locale-specific edge cases affecting SQL schema, #772
+*	Bug fix: Newline stripping in config()
+*	Bug fix: bracket delimited identifier for sybase and dblib driver
+*	Bug fix: Mongo mapper collection->count driver compatibility
+*	Bug fix: SQL Mapper->set() forces adhoc value if already defined
+*	Bug fix: Mapper ignores HAVING clause
+*	Bug fix: Constructor invocation in call()
+*	Bug fix: Wrong element returned by ajax/sync request
+*	Bug fix: handling of non-consecutive compound key members
+*	Bug fix: Virtual fields not retrieved when group option is present, #757
+*	Bug fix: group option generates incorrect SQL query, #757
+*	Bug fix: ONERROR does not receive PARAMS on fatal error
+
 3.4.0 (1 January 2015)
 *	NEW: [redirects] section
 *	NEW: Custom config sections
