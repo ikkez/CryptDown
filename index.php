@@ -15,8 +15,17 @@
  *  @date 18.03.2015
  **/
 
+/** @var Base $f3 */
 $f3 = include('lib/base.php');
 $f3->config('config.ini');
+
+if ($f3->exists('LEGACY_ROUTING', $legacy)) {
+	if ($legacy && $f3->exists('GET.r',$route)) {
+		$f3->set('SERVER.REQUEST_URI','/'.$route);
+		$f3->set('PATH','/'.$route);
+	}
+} else
+	$f3->set('LEGACY_ROUTING',false);
 
 $f3->set('DB', new \DB\SQL('sqlite:data/pastes.db'));
 
@@ -95,15 +104,20 @@ $f3->route('POST /create',function( \Base $f3 ) {
 		$mapper->uuid = $f3->hash( $f3->SALT . time() );
 		$mapper->save();
 
+		$path = $f3->LEGACY_ROUTING
+				? '?r=view/'.$mapper->uuid
+				: '/view/'.$mapper->uuid;
+
 		if ($f3->get('AJAX')) {
 			$f3->status(200);
+
 			echo json_encode(array(
-				'pasteURI' => $f3->SCHEME.'://'.$f3->HOST.$f3->BASE.'/view/'.$mapper->uuid,
+				'pasteURI' => $f3->SCHEME.'://'.$f3->HOST.$f3->BASE.$path,
 				'pasteID' => $mapper->uuid,
 			));
 			exit();
 		}
-		$f3->reroute('/view/'.$mapper->uuid);
+		$f3->reroute($path);
 
 	} else {
 		if ($f3->get('AJAX'))

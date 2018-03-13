@@ -4,7 +4,7 @@
 	</h1>
 </div>
 
-<form id="composeForm" class="form" method="post" action="create">
+<form id="composeForm" class="form" method="post" action="{{ @LEGACY_ROUTING ? '?r=' : '' }}create">
 	<fieldset>
 		<div role="tabpanel" id="composeTabs">
 			<ul class="nav nav-tabs" role="tablist">

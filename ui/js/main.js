@@ -109,11 +109,12 @@ $(function(){
 				return false;
 			} else {
 				$('#saveBtn i').attr('class', 'fa fa-spinner fa-pulse');
+				var formEl = $('#composeForm');
 				$.ajax({
 					type: 'POST',
-					data: $('#composeForm').serialize(),
+					data: $formEl.serialize(),
 					dataType: 'JSON',
-					url: 'create'
+					url: formEl.attr('action')
 				}).done(function(data){
 					if (savePw) {
 						window.localStorage[data.pasteID] = pass;
